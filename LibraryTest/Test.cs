@@ -2,7 +2,7 @@
 using LibraryMenangmentKit;
 using System;
 
-namespace LMKTests
+namespace LibraryTest
 {
 	[TestFixture]
 	class Test
