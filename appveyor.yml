@@ -11,7 +11,7 @@ before_build:
 
 build:
 
-project: LibraryMenangmentKit.sln
+project: LibraryMenangmentKit.csproj
 
 verbosity: minimal
 
