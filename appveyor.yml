@@ -5,8 +5,9 @@ platform: Any CPU
 configuration:
  - Debug
  - Release
+
 build:
-project:LibraryMenangmentKit.sln
+project: LibraryMenangmentKit.sln
 verbosity: minimal
 
 before_build:
