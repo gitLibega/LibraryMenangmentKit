@@ -7,11 +7,11 @@ configuration:
  - Release
 
 before_build:
- - nuget restore
+ - dotnet restore
 
 build:
 
-project: LibraryMenangmentKit.csproj
+project: LibraryMenangmentKit.sln
 
 verbosity: minimal
 
