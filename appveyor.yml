@@ -5,8 +5,8 @@ before_build:
 
 build:
 
-project: LibraryMenangmentKit.sln
+ project: LibraryMenangmentKit.sln
 
-verbosity: minimal
+ verbosity: minimal
 
 
