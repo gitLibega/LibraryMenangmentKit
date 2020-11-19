@@ -6,9 +6,13 @@ configuration:
  - Debug
  - Release
 
-build:
-project: LibraryMenangmentKit.sln
-verbosity: minimal
-
 before_build:
  - nuget restore
+
+build:
+
+project: LibraryMenangmentKit.sln
+
+verbosity: minimal
+
+
