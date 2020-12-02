@@ -19,17 +19,26 @@ namespace LibraryMenangmentKit
 		/// добавить книгу
 		/// </summary>
 		/// <param name="nameBook"></param>
-		public void addBook(string nameBook)
+		public void addBook(string nameBook, int count=1)
 		{
+			if (nameBook==""|| nameBook == " ")
+			{
+				throw new Exception("Не правильный вариант ввода названия");
+				
+			}
+			if(books.ContainsKey(nameBook) && books[nameBook]==int.MaxValue)
+			{
+				throw new Exception("Место на складе закончилось");
+			}
 			if (!books.ContainsKey(nameBook))
 			{
-				books.Add(nameBook, 1);
+				books.Add(nameBook, count);
 				return;
 			}
 
 			if (books.ContainsKey(nameBook))
 			{
-				books[nameBook]++;
+				books[nameBook]+=count;
 				return;
 			}
 		}
@@ -215,3 +224,4 @@ namespace LibraryMenangmentKit
 	
 	}
 }
+                                      
