@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Edge;
+using OpenQA.Selenium.Chrome;
 
 namespace Web.AutomatedUITests.Init
 {
@@ -113,14 +113,14 @@ namespace Web.AutomatedUITests.Init
         /// <inheritdoc />
         protected override IWebDriver CreateWebDriver()
         {
-            var service = EdgeDriverService.CreateDefaultService();
+            var service = ChromeDriverService.CreateDefaultService();
             service.HideCommandPromptWindow = true;
 
-            var options = new EdgeOptions();
-            options.AddExtensionPath("headless");
+            var options = new ChromeOptions();
+            options.AddArgument("headless");
 
 
-            var driver = new EdgeDriver(service, options);
+            var driver = new ChromeDriver(service, options);
             return driver;
         }
     }
