@@ -1,0 +1,97 @@
+﻿@model LibraryMenangmentKit.Librarykit
+@{
+    ViewData["Title"] = "Home Page";
+    if (!TempData.ContainsKey("Error"))
+    {
+        TempData["Error"] = "";
+    }
+}
+
+<div class="text-center">
+    <h4 class="display-3">Librarykit</h4>
+    <h3>Книжки: <span id="count">@Model.countBooksInLibrary()</span></h3>
+    <table id="books" class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Имя</th>
+            <th scope="col">Количество</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var nameAndCountPair in Model.Books)
+        {
+            <tr>
+                <td>@nameAndCountPair.Key</td>
+                <td>@nameAndCountPair.Value</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    <h3>Клиенты:</h3>
+    <table id="clients" class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Имя</th>
+            <th scope="col">Книги</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var idAndNamePair in Model.Clients)
+        {
+            <tr>
+                <td>@idAndNamePair.Key</td>
+                <td>@idAndNamePair.Value</td>
+                <td>@string.Join("; ", Model.GetClientBooks(idAndNamePair.Key))</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    <div class="container bg-light">
+        <div class="row m-3">
+            <div class="col-sm m-1">
+                <span class="text-danger" id="error">@TempData["Error"]</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm m-1">
+                <h5>Добавить книжку</h5>
+                <form asp-controller="Home" asp-action="AddBook" method="post" autocomplete="off">
+                    <div class="form-group row">
+                        <label for="addName">Имя</label>
+                        <input name="addName" class="form-control" id="addName" placeholder="Введите имя">
+                    </div>
+                    <div class="form-group row">
+                        <label for="addCount">Количество</label>
+                        <input type="number" name="addCount" class="form-control" id="addCount" placeholder="Введите количество" value="1">
+                    </div>
+                    <button id="btnAddBook" type="submit" class="btn btn-primary float-right">Добавить</button>
+                </form>
+            </div>
+            <div class="col-sm m-1">
+                <h5>Добавить клиента</h5>
+                <form asp-controller="Home" asp-action="AddClient" method="post" autocomplete="off">
+                    <div class="form-group row">
+                        <label for="newClientName">Имя</label>
+                        <input name="newClientName" class="form-control" id="newClientName" placeholder="Введите имя">
+                    </div>
+                    <button id="btnAddClient" type="submit" class="btn btn-primary float-right">Добавить</button>
+                </form>
+            </div>
+            <div class="col-sm m-1">
+                <h5>Дать книгу</h5>
+                <form asp-controller="Home" asp-action="GiveBook" method="post" autocomplete="off">
+                    <div class="form-group row">
+                        <label for="giveBookName">Имя книги</label>
+                        <input name="giveBookName" class="form-control" id="giveBookName" placeholder="Введите имя">
+                    </div>
+                    <div class="form-group row">
+                        <label for="giveToClientId">ID Клиента</label>
+                        <input type="number" name="giveToClientId" class="form-control" id="giveToClientId" placeholder="Введите id" value="1">
+                    </div>
+                    <button id="btnGiveBook" type="submit" class="btn btn-primary float-right">Добавить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
