@@ -88,16 +88,20 @@ namespace LibraryMenangmentKit
         /// <param name="idClient"></param>
         public void returnBook(string nameBook, int idClient)
         {
-            if (Books.ContainsKey(nameBook) && Clients.ContainsKey(idClient))
+            if (Books.ContainsKey(nameBook) && Clients.ContainsKey(idClient) && BusyBooks.ContainsKey(idClient))
             {
                 Books[nameBook]++;
                 BusyBooks[idClient].Remove(nameBook);
+                if(BusyBooks[idClient].Count<1)
+				{
+                    BusyBooks.Remove(idClient);
+				}
                 return;
             }
 
-            if (!Clients.ContainsKey(idClient))
+            if (!BusyBooks.ContainsKey(idClient))
             {
-                throw new Exception("Данного клиента не существует");
+                throw new Exception("Данного клиента не существует в списке должников");
             }
 
             if (!Books.ContainsKey(nameBook))
@@ -150,7 +154,7 @@ namespace LibraryMenangmentKit
         /// удалить книгу
         /// </summary>
         /// <param name="nameBook"></param>
-        public void removeBook(string nameBook)
+        public void removeBook(string nameBook,int count)
         {
             var book = 0;
             foreach (var v in BusyBooks.Keys)
@@ -165,11 +169,26 @@ namespace LibraryMenangmentKit
                 }
             }
 
-            if (Books.ContainsKey(nameBook) && book < 1)
+            
+            if (count != 0)
             {
-                Books.Remove(nameBook);
-                return;
+                if (Books.ContainsKey(nameBook) && book==0  && Books[nameBook] - count > 0)
+                {
+                    Books[nameBook] = Books[nameBook] - count;
+                    return;
+                }
+                if (Books.ContainsKey(nameBook) && book==0 && Books[nameBook] - count <= 0)
+                {
+                    Books.Remove(nameBook);
+                    return;
+                }
+                if (Books.ContainsKey(nameBook) && book>0 && Books[nameBook] - count <= 0)
+                {
+                    Books[nameBook] = 0;
+                    return;
+                }
             }
+          
 
             if (!Books.ContainsKey(nameBook))
             {
@@ -221,7 +240,7 @@ namespace LibraryMenangmentKit
         /// 
         private int generateIdClient()
         {
-            var current = 0;
+            var current = 1;
             if (Clients.ContainsKey(current))
             {
                 return Clients.Last().Key + 1;

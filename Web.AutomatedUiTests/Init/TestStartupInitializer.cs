@@ -114,10 +114,10 @@ namespace Web.AutomatedUITests.Init
         protected override IWebDriver CreateWebDriver()
         {
             var service = ChromeDriverService.CreateDefaultService();
-            service.HideCommandPromptWindow = true;
+          //  service.HideCommandPromptWindow = true;
 
             var options = new ChromeOptions();
-            options.AddArgument("headless");
+         //   options.AddArgument("headless");
 
 
             var driver = new ChromeDriver(service, options);

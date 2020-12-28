@@ -40,6 +40,23 @@ namespace Web.Controllers
 
             return RedirectToAction("Index");
         }
+        [HttpPost]
+        public IActionResult RemoveBook(RemoveBookModel model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _dataContainer.Kit.removeBook(model.rmvName, model.rmvCount);
+                }
+            }
+            catch (Exception e)
+            {
+                TempData["Error"] = e.Message;
+            }
+
+            return RedirectToAction("Index");
+        }
 
         [HttpPost]
         public IActionResult GiveBook(GiveBookModel model)
@@ -49,6 +66,25 @@ namespace Web.Controllers
                 if (ModelState.IsValid)
                 {
                     _dataContainer.Kit.giveBook(model.GiveBookName, model.GiveToClientId);
+                }
+            }
+            catch (Exception e)
+            {
+                TempData["Error"] = e.Message;
+            }
+
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult ReturnBook(ReturnBookModel model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _dataContainer.Kit.returnBook(model.ReturnBookName, model.ReturnFromClientId);
                 }
             }
             catch (Exception e)

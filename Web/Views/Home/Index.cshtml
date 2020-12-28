@@ -63,10 +63,27 @@
                     </div>
                     <div class="form-group row">
                         <label for="addCount">Количество</label>
-                        <input type="number" name="addCount" class="form-control" id="addCount" placeholder="Введите количество" value="1">
+                        <input type="number" min="1" name="addCount" class="form-control" id="addCount" placeholder="Введите количество" value="1">
                     </div>
                     <button id="btnAddBook" type="submit" class="btn btn-primary float-right">Добавить</button>
+
+
                 </form>
+            </div>
+            <div class="col-sm m-1">
+                <h5>Удалить книжку</h5>
+                <form asp-controller="Home" asp-action="RemoveBook" method="post" autocomplete="off">
+                    <div class="form-group row">
+                        <label for="rmvName">Имя</label>
+                        <input name="rmvName" class="form-control" id="rmvName" placeholder="Введите имя">
+                    </div>
+                    <div class="form-group row">
+                        <label for="rmvCount">Количество</label>
+                        <input type="number" min="1" name="rmvCount" class="form-control" id="rmvCount" placeholder="Введите количество" value="1">
+                    </div>
+                    <button id="btnRmvBook" type="submit" class="btn btn-primary float-right">Удалить</button>
+                </form>
+
             </div>
             <div class="col-sm m-1">
                 <h5>Добавить клиента</h5>
@@ -87,9 +104,23 @@
                     </div>
                     <div class="form-group row">
                         <label for="giveToClientId">ID Клиента</label>
-                        <input type="number" name="giveToClientId" class="form-control" id="giveToClientId" placeholder="Введите id" value="1">
+                        <input type="number" min="1" name="giveToClientId" class="form-control" id="giveToClientId" placeholder="Введите id" value="1">
                     </div>
                     <button id="btnGiveBook" type="submit" class="btn btn-primary float-right">Добавить</button>
+                </form>
+            </div>
+            <div class="col-sm m-1">
+                <h5>Вернуть книгу</h5>
+                <form asp-controller="Home" asp-action="ReturnBook" method="post" autocomplete="off">
+                    <div class="form-group row">
+                        <label for="returnBookName">Имя книги</label>
+                        <input name="returnBookName" class="form-control" id="returnBookName" placeholder="Введите имя">
+                    </div>
+                    <div class="form-group row">
+                        <label for="returnFromClientId">ID Клиента</label>
+                        <input type="number" min="1" name="returnFromClientId" class="form-control" id="returnFromClientId" placeholder="Введите id" value="1">
+                    </div>
+                    <button id="btnReturnBook" type="submit" class="btn btn-primary float-right">Вернуть</button>
                 </form>
             </div>
         </div>

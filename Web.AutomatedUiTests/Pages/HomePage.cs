@@ -15,6 +15,13 @@ namespace Web.AutomatedUITests.Pages
         public IWebElement BookAddCountInputElement => Initializer.Driver.FindElement(By.Name("addCount"));
         public IWebElement BookAddButtonElement => Initializer.Driver.FindElement(By.Id("btnAddBook"));
 
+        public IWebElement BookRemoveNameInputElement => Initializer.Driver.FindElement(By.Name("rmvName"));
+        public IWebElement BookRemoveCountInputElement => Initializer.Driver.FindElement(By.Name("rmvCount"));
+        public IWebElement BookRemoveButtonElement => Initializer.Driver.FindElement(By.Id("btnRmvBook"));
+
+        public IWebElement BookReturnNameInputElement => Initializer.Driver.FindElement(By.Name("returnBookName"));
+        public IWebElement ClientIdInputElement => Initializer.Driver.FindElement(By.Name("returnFromClientId"));
+        public IWebElement BookReturnButtonElement => Initializer.Driver.FindElement(By.Id("btnReturnBook"));
 
         public IWebElement NewClientNameInputElement => Initializer.Driver.FindElement(By.Id("newClientName"));
         public IWebElement NewClientAddButtonElement => Initializer.Driver.FindElement(By.Id("btnAddClient"));
@@ -41,6 +48,14 @@ namespace Web.AutomatedUITests.Pages
             BookAddCountInputElement.SendKeys(model.AddCount.ToString());
         }
 
+        public void PopulateRemoveBook(RemoveBookModel model)
+        {
+            BookRemoveNameInputElement.SendKeys(model.rmvName);
+
+            BookRemoveCountInputElement.Clear();
+            BookRemoveCountInputElement.SendKeys(model.rmvCount.ToString());
+        }
+
         public void PopulateNewClientName(string name)
         {
             NewClientNameInputElement.SendKeys(name);
@@ -54,9 +69,15 @@ namespace Web.AutomatedUITests.Pages
             GiveToClientIdInputElement.SendKeys(model.GiveToClientId.ToString());
         }
 
+
         public void ClickBookAddButton() => BookAddButtonElement.Click();
         public void ClickNewClientAddButton() => NewClientAddButtonElement.Click();
         public void ClickGiveBookButton() => GiveBookButtonElement.Click();
+
+        public void ClickRemoveBook()=> BookRemoveButtonElement.Click();
+        public void ClickReturnBookButton() => BookReturnButtonElement.Click();
+
+
 
         public List<(string name, int count)> ExtractBooksTable()
         {

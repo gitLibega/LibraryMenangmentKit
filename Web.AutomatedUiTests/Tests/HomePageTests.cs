@@ -185,5 +185,60 @@ namespace Web.AutomatedUITests.Tests
             // должна быть ошибка
             Assert.Contains("Данной книги нет в наличии", _page.ErrorTextString);
         }
+        [Fact]
+        public void TestRemoveBook()
+		{
+            _initializer.EnsureServerRestart();
+            _page.Navigate();
+
+            var newBook = new AddBookModel() { AddName = "testName", AddCount = 2 };
+            _page.PopulateNewBook(newBook);
+            _page.ClickBookAddButton();
+            var beforeAdd = _page.ExtractBooksTable();
+            var removeBook = new RemoveBookModel() { rmvName = newBook.AddName,rmvCount=2  };
+            _page.PopulateRemoveBook(removeBook);
+            _page.ClickRemoveBook();
+            var afterAdd = _page.ExtractBooksTable();
+            Assert.Equal(0, afterAdd.Count);
+
+        }
+        [Fact]
+        public void TestRemoveBusyBook()
+        {
+            _initializer.EnsureServerRestart();
+            _page.Navigate();
+
+            var newBook = new AddBookModel() { AddName = "testName", AddCount = 2 };
+            _page.PopulateNewBook(newBook);
+            _page.ClickBookAddButton();
+
+            var newClientName = "testClientName";
+            _page.PopulateNewClientName(newClientName);
+            _page.ClickNewClientAddButton();
+
+
+            var info = new GiveBookModel() { GiveBookName = newBook.AddName, GiveToClientId =1 };
+            _page.PopulateGiveBookInfo(info);
+            _page.ClickGiveBookButton();
+
+            var removeBook = new RemoveBookModel() { rmvName = newBook.AddName, rmvCount = 2 };
+            _page.PopulateRemoveBook(removeBook);
+            _page.ClickRemoveBook();
+          
+
+
+            var returnBook = new ReturnBookModel()
+            {
+                ReturnBookName = newBook.AddName,
+                ReturnFromClientId = 1
+
+            };
+            _page.PopulateNewBook(newBook);
+            _page.ClickReturnBookButton();
+
+            var afterAdd = _page.ExtractBooksTable();
+
+            Assert.Equal(1, afterAdd.Count);
+        }
     }
 }
