@@ -101,13 +101,13 @@ namespace Web.AutomatedUITests.Tests
             _page.PopulateNewClientName(newClientName);
             _page.ClickNewClientAddButton();
 
-            var info = new GiveBookModel() {GiveBookName = newBook.AddName, GiveToClientId = 0};
+            var info = new GiveBookModel() {GiveBookName = newBook.AddName, GiveToClientId =1};
             _page.PopulateGiveBookInfo(info);
             _page.ClickGiveBookButton();
 
             var afterAdd = _page.ExtractClientTable();
             Assert.Single(afterAdd);
-            Assert.Contains(afterAdd, a => a.id == 0 && a.clientName == newClientName && a.bookList.Contains(newBook.AddName));
+            Assert.Contains(afterAdd, a => a.id == 1 && a.clientName == newClientName && a.bookList.Contains(newBook.AddName));
         }
 
         [Fact]
@@ -153,7 +153,7 @@ namespace Web.AutomatedUITests.Tests
             _page.ClickNewClientAddButton();
 
             // даём клиенту несуществующую книгу
-            var info = new GiveBookModel() {GiveBookName = "asdasdasd", GiveToClientId = 0};
+            var info = new GiveBookModel() {GiveBookName = "asdasdasd", GiveToClientId = 1};
             _page.PopulateGiveBookInfo(info);
             _page.ClickGiveBookButton();
 
@@ -168,7 +168,7 @@ namespace Web.AutomatedUITests.Tests
             _page.Navigate();
 
             // добавляем книгу с количеством 0
-            var newBook = new AddBookModel() {AddName = "testName", AddCount = 0};
+            var newBook = new AddBookModel() {AddName = "testName", AddCount = 2};
             _page.PopulateNewBook(newBook);
             _page.ClickBookAddButton();
 
@@ -178,7 +178,13 @@ namespace Web.AutomatedUITests.Tests
             _page.ClickNewClientAddButton();
 
             // даём клиенту эту книгу
-            var info = new GiveBookModel() {GiveBookName = newBook.AddName, GiveToClientId = 0};
+            var info = new GiveBookModel() {GiveBookName = newBook.AddName, GiveToClientId = 1};
+            _page.PopulateGiveBookInfo(info);
+            _page.ClickGiveBookButton();
+             info = new GiveBookModel() { GiveBookName = newBook.AddName, GiveToClientId = 1 };
+            _page.PopulateGiveBookInfo(info);
+            _page.ClickGiveBookButton();
+             info = new GiveBookModel() { GiveBookName = newBook.AddName, GiveToClientId = 1 };
             _page.PopulateGiveBookInfo(info);
             _page.ClickGiveBookButton();
 
